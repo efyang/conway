@@ -14,9 +14,6 @@ fn main() {
     let startvec: Vec<bool> = (0..term.size().0 * term.size().1)
         .map(|_| rand::random())
         .collect();
-    //for _ in 0..term.size().0 * term.size().1 {
-        //startvec.push(rand::random());
-    //} 
     term.clone_from_slice(&bools_to_cells(&startvec, &(alive, dead)));
     loop {
         //term.clear_with_styles(alive, alive).unwrap();
@@ -24,9 +21,7 @@ fn main() {
         if evt.is_some() {
             match evt.unwrap() {
                 Event::Key('q') => break, //break
-                Event::Key('r') => {
-                    //startvec.iter().map(|_| rand::random()).collect::<Vec<bool>>();
-                                    term.clone_from_slice(&bools_to_cells(&(startvec
+                Event::Key('r') => {term.clone_from_slice(&bools_to_cells(&(startvec
                                                                           .iter()
                                                                           .map(|_| rand::random())
                                                                           .collect::<Vec<bool>>()), 
@@ -103,7 +98,6 @@ fn bools_to_cells(orig: &Vec<bool>, styles: &(Style, Style)) -> Vec<Cell> {
 
 #[cfg(test)] 
 mod tests {
-    
     #[test]
     fn test_neighbors() {
         assert_eq!(vec![(2,1), (0,1), (1,2), (1,0), (2,2), (0,2), (2,0), (0,0)], super::get_neighbors(&(1,1), &(20,20)));
