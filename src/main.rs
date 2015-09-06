@@ -11,7 +11,7 @@ fn main() {
     let mut term = Terminal::new().unwrap();
     let dead = Style::with_color(Color::White);
     let alive = Style::with_color(Color::Black);
-    let mut startvec: Vec<bool> = (0..term.size().0 * term.size().1)
+    let startvec: Vec<bool> = (0..term.size().0 * term.size().1)
         .map(|_| rand::random())
         .collect();
     //for _ in 0..term.size().0 * term.size().1 {
@@ -24,8 +24,13 @@ fn main() {
         if evt.is_some() {
             match evt.unwrap() {
                 Event::Key('q') => break, //break
-                Event::Key('r') => {startvec.iter().map(|_| rand::random()).collect::<Vec<bool>>();
-                                    term.clone_from_slice(&bools_to_cells(&startvec, &(alive, dead)));}, //new random seed
+                Event::Key('r') => {
+                    //startvec.iter().map(|_| rand::random()).collect::<Vec<bool>>();
+                                    term.clone_from_slice(&bools_to_cells(&(startvec
+                                                                          .iter()
+                                                                          .map(|_| rand::random())
+                                                                          .collect::<Vec<bool>>()), 
+                                                                          &(alive, dead)));}, //new random seed
                 Event::Key(_)   => {},    //do nothing
             }
         }
@@ -72,7 +77,7 @@ fn is_alive(idx: &(usize, usize), term: &Vec<bool>, size: &(usize, usize)) -> bo
         .map(|i| term[(i.1 * size.0) + i.0])
         .collect();
     let live: usize = statuses.iter().fold(0usize, |acc, &item| if item { acc + 1 } else {acc});
-    if (term[(idx.1 * size.0) + idx.0]) {
+    if term[(idx.1 * size.0) + idx.0] {
         //if cell is already alive 
         if live < 2 || live > 3 {
             return false;
