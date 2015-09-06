@@ -20,7 +20,6 @@ fn main() {
     let max_threads: usize = num_cpus::get();
 
     loop {
-        //term.clear_with_styles(alive, alive).unwrap();
         let evt = term.get_event(0).unwrap();
         if evt.is_some() {
             match evt.unwrap() {
@@ -42,6 +41,8 @@ fn main() {
             .collect();
         let termcopy: Vec<bool> = bufferterm.clone();
         let termsize: (usize, usize) = term.size();
+
+        //for parallel implementation just clone vector for each thread and ssplit the index ranges
         
         for y in 0..termsize.1 {
             for x in 0..termsize.0 {
