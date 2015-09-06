@@ -5,3 +5,4 @@ authors = ["honorabrutroll"]
 [dependencies]
 rustty = "*"
 rand = "0.3"
+num_cpus = "*"

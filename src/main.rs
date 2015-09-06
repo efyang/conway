@@ -2,6 +2,7 @@
 #![feature(convert)] 
 extern crate rustty;
 extern crate rand;
+extern crate num_cpus;
 use rustty::{Terminal, Cell, Style, Color, Event};
 use std::thread::sleep_ms;
 use rand::random;
@@ -15,6 +16,9 @@ fn main() {
         .map(|_| rand::random())
         .collect();
     term.clone_from_slice(&bools_to_cells(&startvec, &(alive, dead)));
+
+    let max_threads: usize = num_cpus::get();
+
     loop {
         //term.clear_with_styles(alive, alive).unwrap();
         let evt = term.get_event(0).unwrap();
