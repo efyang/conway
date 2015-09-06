@@ -10,6 +10,8 @@ Conway's Game of Life in Rust (using rustty)
 
 
 ### Todo:
+* Dev phased out in favor of graphical piston version
+
 * Fix random generation for resized windows
 * Parallel checking
 * Save seeds to file (binary???)
