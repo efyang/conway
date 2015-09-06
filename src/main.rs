@@ -11,7 +11,7 @@ fn main() {
     let mut term = Terminal::new().unwrap();
     let dead = Style::with_color(Color::White);
     let alive = Style::with_color(Color::Black);
-    let startvec: Vec<bool> = (0..term.size().0 * term.size().1)
+    let mut startvec: Vec<bool> = (0..term.size().0 * term.size().1)
         .map(|_| rand::random())
         .collect();
     term.clone_from_slice(&bools_to_cells(&startvec, &(alive, dead)));
@@ -21,11 +21,12 @@ fn main() {
         if evt.is_some() {
             match evt.unwrap() {
                 Event::Key('q') => break, //break
-                Event::Key('r') => {term.clone_from_slice(&bools_to_cells(&(startvec
-                                                                          .iter()
-                                                                          .map(|_| rand::random())
-                                                                          .collect::<Vec<bool>>()), 
-                                                                          &(alive, dead)));}, //new random seed
+                Event::Key('g') => {startvec = startvec
+                                                 .iter()
+                                                 .map(|_| rand::random())
+                                                 .collect::<Vec<bool>>();
+                                    term.clone_from_slice(&bools_to_cells(&startvec, &(alive, dead)));}, //new random seed
+                Event::Key('r') => {term.clone_from_slice(&bools_to_cells(&startvec, &(alive, dead)));}
                 Event::Key(_)   => {},    //do nothing
             }
         }
